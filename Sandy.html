@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Timetable</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f8ff;
+    margin: 0;
+    padding: 20px;
+}
+
+.timetable {
+    max-width: 900px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    background: #3498db;
+    color: white;
+    text-align: center;
+    padding: 25px 10px;
+    margin: 0;
+    font-size: 32px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th,
+td {
+    padding: 20px 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+}
+
+td:first-child {
+    background: #d6edff;
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tbody tr:nth-child(even) td:first-child {
+    background: #e2d5ff;
+}
+button{
+    font-size:30px;
+    text-alignment:center;
+    color:blue;
+    decoration:italic;
+   border:none;
+border-radius:6px;
+cursor:pointer;
+background-color: skyblue;
+}
+
+tbody tr:hover {
+    background: gold;
+}
+
+/* Make the timetable fit small screens */
+@media (max-width: 600px) {
+    body {
+        padding: 8px;
+    }
+
+    .timetable {
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 24px;
+        padding: 20px 5px;
+    }
+
+    th,
+    td {
+        padding: 12px 4px;
+        font-size: 12px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+    <div class="timetable">
+        <h1>School Timetable</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Class 7</td>
+                    <td>Math</td>
+                    <td>English</td>
+                    <td>Science</td>
+                    <td>History</td>
+                    <td>PE</td>
+                </tr>
+
+                <tr>
+                    <td>Class 8</td>
+                    <td>Science</td>
+                    <td>Math</td>
+                    <td>English</td>
+                    <td>Geography</td>
+                    <td>Art</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<button>Click me</button>
+</body>
+</html>

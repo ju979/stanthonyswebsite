@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KWUST Clearance - Final 10 Departments</title>
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,Arial}
+body{background:#eef2f7;margin:0;padding:15px}
+.top{background:#0b3d91;color:white;padding:18px;border-radius:14px;text-align:center}
+.top h1{margin:0;font-size:21px}
+.card{background:white;border-radius:14px;padding:20px;margin-top:14px;box-shadow:0 3px 12px rgba(0,0,0,.08);max-width:580px;margin-left:auto;margin-right:auto}
+input,select{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:10px}
+button{width:100%;padding:12px;border:none;border-radius:10px;background:#0b3d91;color:white;font-weight:800;cursor:pointer;margin-top:6px}
+button.secondary{background:#eee;color:#333}
+button.smallBtn{width:auto;padding:8px 14px;font-size:13px;margin:2px}
+button.green{background:#16a34a} button.red{background:#dc2626}
+.hidden{display:none}
+.small{font-size:13px;color:#666;text-align:center;cursor:pointer}
+.msg{padding:10px;border-radius:10px;text-align:center;font-size:13px;display:none}
+.msg.err{background:#ffe1e1;color:#b91c1c;display:block}
+.msg.ok{background:#dcfce7;color:#166534;display:block}
+.progress{height:16px;background:#eee;border-radius:20px;overflow:hidden;margin:10px 0}
+#bar{height:100%;width:0%;background:#22c55e;color:white;font-size:12px;line-height:16px;text-align:center}
+.dept{display:flex;justify-content:space-between;align-items:center;padding:12px;border:1px solid #eee;border-radius:12px;margin:8px 0}
+.status{padding:6px 12px;border-radius:20px;font-size:12px;font-weight:800}
+.not{background:#fee2e2;color:#b91c1c} .pend{background:#fef3c7;color:#92400e} .clear{background:#dcfce7;color:#166534}
+.studentRow{border:1px solid #eee;border-radius:12px;padding:12px;margin:8px 0}
+.cert{border:4px double #0b3d91;padding:22px;text-align:center;background:#fffdf5;border-radius:10px}
+.cert h1{color:#b45309;font-size:22px}
+.bigName{font-size:23px;font-weight:900;text-transform:uppercase}
+.sign{display:flex;justify-content:space-between;margin-top:28px;font-size:12px}
+@media print{ body *{visibility:hidden} #certPage, #certPage *{visibility:visible} #certPage{position:absolute;left:0;top:0;width:100%} .noPrint{display:none} }
+</style>
+</head>
+<body>
+<div class="top"><h1>KWUST - STUDENT CLEARANCE SYSTEM</h1><p style="font-size:12px">Student • Department • Admin • Certificate - 10 DEPARTMENTS</p><p style="background:#22c55e;padding:5px;border-radius:8px;font-size:12px">✅ PAGE LOADED - JAVASCRIPT IS ACTIVE</p></div>
+
+<div class="card" id="authPage">
+<div id="msg" class="msg"></div>
+<h3 style="text-align:center">Login</h3>
+<select id="roleSelect" onchange="toggleRole()">
+<option value="student">I am a Student</option>
+<option value="dept">I am a Department Officer</option>
+<option value="admin">I am Admin / Registrar</option>
+</select>
+<div id="studentLogin">
+<input id="loginReg" placeholder="Reg No e.g. KWUST/2025/099">
+<input id="loginPass" type="password" placeholder="Password">
+<button onclick="studentLogin()">Login as Student</button>
+<p class="small" onclick="showReg()">No account? Register as Student</p>
+<div id="regBox" class="hidden">
+<input id="regName" placeholder="Full Name e.g. JANE THIGWE RUGU">
+<input id="regCourse" placeholder="Course e.g. DIPLOMA IN ICT">
+<input id="regPass" type="password" placeholder="Password 8+ chars">
+<button onclick="studentRegister()">Register Student</button>
+</div>
+</div>
+<div id="deptLogin" class="hidden">
+<input id="deptEmail" placeholder="Dept Email">
+<input id="deptPass" type="password" placeholder="Dept Password">
+<button onclick="deptLogin()">Login as Department</button>
+<p style="font-size:12px;color:#888;text-align:center">
+admission@kwust.ac.ke / admin12345<br>
+hod@kwust.ac.ke / hod12345<br>
+laboratory@kwust.ac.ke / lab12345<br>
+games@kwust.ac.ke / games12345<br>
+dos@kwust.ac.ke / dos12345<br>
+hostel@kwust.ac.ke / host12345<br>
+exam@kwust.ac.ke / exam12345<br>
+library@kwust.ac.ke / lib12345<br>
+regcademics@kwust.ac.ke / reg12345<br>
+finance@kwust.ac.ke / fin12345<br>
+<b>OR Super Officer (can approve all):</b><br>clearance@kwust.ac.ke / clear12345
+</p>
+</div>
+<div id="adminLogin" class="hidden">
+<input id="adminEmail" placeholder="Admin Email">
+<input id="adminPass" type="password" placeholder="Admin Password">
+<button onclick="adminLogin()">Login as Admin</button>
+<p style="font-size:12px;color:#888;text-align:center">admin@kwust.ac.ke / admin123</p>
+</div>
+<div id="mfaBox" class="hidden">
+<h3 style="text-align:center">MFA Verification</h3><p style="font-size:13px;text-align:center">Demo Code: <b>123456</b></p>
+<input id="mfaCode" placeholder="Enter 123456">
+<button onclick="verifyMFA()">Verify</button>
+</div>
+</div>
+
+<div class="card hidden" id="studentPage">
+<h3>Welcome Student, <span id="sName"></span></h3>
+<p style="font-size:13px">Reg: <b id="sReg"></b> | Course: <b id="sCourse"></b></p>
+<p>Progress: <b id="pctText">0%</b></p><div class="progress"><div id="bar">0%</div></div>
+<p id="sStatus" style="text-align:center;font-weight:700;color:#0b3d91"></p>
+<div id="sDepts"></div>
+<button id="sCertBtn" class="hidden" style="background:#16a34a" onclick="showCertStudent()">GET MY CERTIFICATE (Student Side)</button>
+<button class="secondary" onclick="logout()">Logout</button>
+</div>
+
+<div class="card hidden" id="deptPage">
+<h3>Department Officer: <span id="dName"></span></h3>
+<p style="font-size:13px">You can approve / reject <b>ANY department</b> for any student here. No need to logout and login 10 times.</p>
+<button class="smallBtn green" onclick="approveAllForFirst()">✅ APPROVE ALL 10 FOR FIRST STUDENT</button>
+<div id="deptList"></div>
+<button class="secondary" onclick="logout()">Logout</button>
+</div>
+
+<div class="card hidden" id="adminPage">
+<h3>Admin / Registrar Dashboard</h3>
+<div id="adminList"></div>
+<button class="secondary" onclick="logout()">Logout</button>
+</div>
+
+<div class="card hidden" id="certPage">
+<div class="cert">
+<p>REPUBLIC OF KENYA</p>
+<h2 style="color:#0b3d91;margin:5px 0">KIRIRI WOMEN'S UNIVERSITY OF SCIENCE AND TECHNOLOGY</h2>
+<p style="font-size:12px">OFFICE OF THE REGISTRAR - STUDENT CLEARANCE</p>
+<h1>★ CERTIFICATE OF CLEARANCE ★</h1>
+<p>This is to certify that</p>
+<div class="bigName" id="certName"></div>
+<p>Reg No: <b id="certReg"></b><br>Course: <b id="certCourse"></b></p>
+<p>Has been <b>successfully cleared</b> by all departments:<br>Admission • Head of Department • Laboratory • Games • Dean of Students • Hostel • Examination Office • Library • Registrar Academics • Finance</p>
+<p>Certificate No: <b id="certNo"></b><br>Date: <b id="certDate"></b><br>Verified By: <b id="certBy"></b></p>
+<div class="sign"><div>_____________<br><b>Registrar</b></div><div style="border:1px dashed #999;padding:8px">QR VERIFIED<br><span id="qrCode"></span></div><div>_____________<br><b>Student</b></div></div>
+</div>
+<div class="noPrint"><button onclick="window.print()" style="background:#b45309">Print / Save as PDF</button><button class="secondary" onclick="backFromCert()">Back</button></div>
+</div>
+
+<script>
+function hashPass(p){let h=0;for(let i=0;i<p.length;i++){h=(h*31+p.charCodeAt(i))>>>0;}return "HASH_"+h+"_"+p.length;}
+let depts=[
+ {id:'adm',name:'Admission',email:'admission@kwust.ac.ke',pass:'admin12345'},
+ {id:'hod',name:'Head of Department',email:'hod@kwust.ac.ke',pass:'hod12345'},
+ {id:'lab',name:'Laboratory',email:'laboratory@kwust.ac.ke',pass:'lab12345'},
+ {id:'games',name:'Games',email:'games@kwust.ac.ke',pass:'games12345'},
+ {id:'dean',name:'Dean of Students',email:'dos@kwust.ac.ke',pass:'dos12345'},
+ {id:'host',name:'Hostel',email:'hostel@kwust.ac.ke',pass:'host12345'},
+ {id:'exam',name:'Examination Office',email:'exam@kwust.ac.ke',pass:'exam12345'},
+ {id:'lib',name:'Library',email:'library@kwust.ac.ke',pass:'lib12345'},
+ {id:'reg',name:'Registrar Academics',email:'regcademics@kwust.ac.ke',pass:'reg12345'},
+ {id:'fin',name:'Finance',email:'finance@kwust.ac.ke',pass:'fin12345'}
+];
+let currentStudent=null, currentDept=null, currentRole=null, lastPage=null;
+let getUsers=()=>{try{return JSON.parse(localStorage.getItem('kwust_users')||'{}')}catch(e){return {}}};
+let setUsers=u=>{try{localStorage.setItem('kwust_users',JSON.stringify(u))}catch(e){alert('Storage blocked. Open in Chrome, not WhatsApp viewer.')}};
+function showMsg(t,err){let m=document.getElementById('msg');m.innerText=t;m.className='msg '+(err?'err':'ok');}
+function toggleRole(){let r=document.getElementById('roleSelect').value;document.getElementById('studentLogin').classList.toggle('hidden',r!=='student');document.getElementById('deptLogin').classList.toggle('hidden',r!=='dept');document.getElementById('adminLogin').classList.toggle('hidden',r!=='admin');}
+function showReg(){document.getElementById('regBox').classList.remove('hidden');}
+function studentRegister(){
+ let reg=document.getElementById('loginReg').value.trim();
+ let name=document.getElementById('regName').value.trim();
+ let course=document.getElementById('regCourse').value.trim();
+ let pass=document.getElementById('regPass').value;
+ if(!reg||!name||!course||!pass) return showMsg('Fill ALL fields first - Reg No, Name, Course, Password',true);
+ if(pass.length<8) return showMsg('Password must be 8+ chars',true);
+ let u=getUsers(); if(u[reg]) return showMsg('Account exists. Login.',true);
+ u[reg]={name:name,course:course,hash:hashPass(pass),attempts:0,lockedUntil:0,status:{}};
+ setUsers(u); showMsg('SUCCESS! Registered. Now Login.',false); alert('Registered! Now login.');
+}
+function studentLogin(){
+ let reg=document.getElementById('loginReg').value.trim();
+ let pass=document.getElementById('loginPass').value;
+ if(!reg||!pass) return showMsg('Enter Reg No and Password',true);
+ let u=getUsers(); let s=u[reg];
+ if(!s) return showMsg('Not found. Click Register first.',true);
+ if(Date.now()<s.lockedUntil) return showMsg('Locked. Wait '+Math.ceil((s.lockedUntil-Date.now())/1000)+' sec',true);
+ if(hashPass(pass)!==s.hash){
+   s.attempts=(s.attempts||0)+1;
+   if(s.attempts>=3){s.lockedUntil=Date.now()+60000;s.attempts=0;u[reg]=s;setUsers(u);return showMsg('Wrong 3 times. Locked 1 min.',true);}
+   u[reg]=s;setUsers(u);return showMsg('Wrong password. Attempt '+s.attempts+'/3',true);
+ }
+ s.attempts=0;u[reg]=s;setUsers(u);
+ localStorage.setItem('kwust_pending',reg); localStorage.setItem('kwust_pending_role','student');
+ document.getElementById('studentLogin').classList.add('hidden');document.getElementById('mfaBox').classList.remove('hidden');
+ showMsg('Password correct! Enter MFA 123456',false);
+}
+function deptLogin(){
+ let e=document.getElementById('deptEmail').value.trim().toLowerCase();
+ let p=document.getElementById('deptPass').value;
+ let d=null; for(let i=0;i<depts.length;i++){if(depts[i].email===e && depts[i].pass===p){d=depts[i];}}
+ if(e==='clearance@kwust.ac.ke' && p==='clear12345'){d={id:'all',name:'Clearance Officer (All Departments)',email:e};}
+ if(!d) return showMsg('Wrong dept login. Check email/password',true);
+ localStorage.setItem('kwust_pending',e); localStorage.setItem('kwust_pending_role','dept');
+ localStorage.setItem('kwust_pending_deptname',d.name);
+ document.getElementById('deptLogin').classList.add('hidden');document.getElementById('mfaBox').classList.remove('hidden');
+ showMsg('Dept correct! Enter MFA 123456',false);
+}
+function adminLogin(){
+ let e=document.getElementById('adminEmail').value.trim().toLowerCase();
+ let p=document.getElementById('adminPass').value;
+ if(e!=='admin@kwust.ac.ke'||p!=='admin123') return showMsg('Wrong admin login',true);
+ localStorage.setItem('kwust_pending',e);localStorage.setItem('kwust_pending_role','admin');
+ document.getElementById('adminLogin').classList.add('hidden');document.getElementById('mfaBox').classList.remove('hidden');
+ showMsg('Admin correct! Enter MFA 123456',false);
+}
+function verifyMFA(){
+ if(document.getElementById('mfaCode').value.trim()!=='123456') return showMsg('Wrong MFA. Use 123456',true);
+ let role=localStorage.getItem('kwust_pending_role');
+ let key=localStorage.getItem('kwust_pending');
+ document.getElementById('authPage').classList.add('hidden');
+ if(role==='student'){
+   currentRole='student'; let u=getUsers(); currentStudent={reg:key,name:u[key].name,course:u[key].course,status:u[key].status};
+   document.getElementById('studentPage').classList.remove('hidden');lastPage='student';
+   document.getElementById('sName').innerText=currentStudent.name;
+   document.getElementById('sReg').innerText=currentStudent.reg;
+   document.getElementById('sCourse').innerText=currentStudent.course;
+   renderStudent();
+ } else if(role==='dept'){
+   currentRole='dept'; currentDept={name:localStorage.getItem('kwust_pending_deptname')||'Department'};
+   document.getElementById('deptPage').classList.remove('hidden');lastPage='dept';
+   document.getElementById('dName').innerText=currentDept.name;
+   renderDept();
+ } else {
+   currentRole='admin'; document.getElementById('adminPage').classList.remove('hidden');lastPage='admin';
+   renderAdmin();
+ }
+}
+function renderStudent(){
+ let box=document.getElementById('sDepts');box.innerHTML='';let cleared=0;
+ for(let i=0;i<depts.length;i++){let d=depts[i];
+  let st=currentStudent.status[d.id]||'Not Cleared';
+  if(st==='Cleared') cleared++;
+  let cls=st==='Cleared'?'clear':st==='Pending'?'pend':'not';
+  let btn=st==='Cleared'?'<button class="smallBtn green" disabled>✓ Cleared</button>':st==='Pending'?'<button class="smallBtn" disabled>Waiting...</button>':'<button class="smallBtn" onclick="studentRequest(\''+d.id+'\')">Request Clearance</button>';
+  box.innerHTML+='<div class="dept"><div><b>'+d.name+'</b></div><div style="text-align:right"><span class="status '+cls+'">'+st+'</span><br><br>'+btn+'</div></div>';
+ }
+ let pct=Math.round(cleared/depts.length*100);
+ document.getElementById('bar').style.width=pct+'%';document.getElementById('bar').innerText=pct+'%';
+ document.getElementById('pctText').innerText=pct+'%';
+ document.getElementById('sStatus').innerText=cleared+' / '+depts.length+' Cleared';
+ if(cleared===depts.length){document.getElementById('sCertBtn').classList.remove('hidden');} else {document.getElementById('sCertBtn').classList.add('hidden');}
+}
+function studentRequest(id){
+ currentStudent.status[id]='Pending';
+ let u=getUsers(); u[currentStudent.reg].status=currentStudent.status; setUsers(u);
+ renderStudent(); alert('Request sent to officer. Wait for approval.');
+}
+function renderDept(){
+ let u=getUsers(); let list=document.getElementById('deptList');list.innerHTML='';
+ if(Object.keys(u).length===0){list.innerHTML='<p>No students yet. Student must register and request first.</p>'; return;}
+ for(let reg in u){
+  let s=u[reg];
+  let html='<div class="studentRow"><b>'+s.name+'</b> ('+reg+')<br><small>'+s.course+'</small><br><br>';
+  for(let i=0;i<depts.length;i++){
+   let d=depts[i]; let st=s.status[d.id]||'Not Cleared';
+   html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid #f0f0f0"><span>'+d.name+': <b>'+st+'</b></span><span><button class="smallBtn green" onclick="deptApprove(\''+reg+'\',\''+d.id+'\')">Approve</button> <button class="smallBtn red" onclick="deptReject(\''+reg+'\',\''+d.id+'\')">Reject</button></span></div>';
+  }
+  html+='</div>';
+  list.innerHTML+=html;
+ }
+}
+function deptApprove(reg,deptId){let u=getUsers(); u[reg].status[deptId]='Cleared'; setUsers(u); renderDept();}
+function deptReject(reg,deptId){let u=getUsers(); u[reg].status[deptId]='Not Cleared'; setUsers(u); renderDept(); alert('Rejected. Student can request again.');}
+function approveAllForFirst(){
+ let u=getUsers(); let keys=Object.keys(u); if(keys.length===0) return alert('No students yet');
+ let reg=keys[0]; for(let i=0;i<depts.length;i++){u[reg].status[depts[i].id]='Cleared';} setUsers(u); renderDept(); alert('All 10 approved for '+u[reg].name+' in one click!');
+}
+function renderAdmin(){
+ let u=getUsers(); let list=document.getElementById('adminList');list.innerHTML='';
+ if(Object.keys(u).length===0) list.innerHTML='<p>No students yet.</p>';
+ for(let reg in u){let s=u[reg]; let cleared=0; for(let i=0;i<depts.length;i++){if(s.status[depts[i].id]==='Cleared') cleared++;}
+  let pct=Math.round(cleared/depts.length*100);
+  let certBtn=cleared===depts.length?'<button class="smallBtn green" onclick="showCertAdmin(\''+reg+'\')">Generate Certificate (Admin Side)</button>':'<small>'+cleared+'/'+depts.length+' Cleared - '+pct+'%</small>';
+  list.innerHTML+='<div class="studentRow"><b>'+s.name+'</b> ('+reg+')<br><small>'+s.course+'</small><br><br>'+certBtn+'</div>';
+ }
+}
+function doCert(name,reg,course,by){
+ document.getElementById('studentPage').classList.add('hidden');
+ document.getElementById('deptPage').classList.add('hidden');
+ document.getElementById('adminPage').classList.add('hidden');
+ document.getElementById('certPage').classList.remove('hidden');
+ let no='KWUST/CLEAR/'+new Date().getFullYear()+'/'+Math.floor(1000+Math.random()*9000);
+ document.getElementById('certName').innerText=name;
+ document.getElementById('certReg').innerText=reg;
+ document.getElementById('certCourse').innerText=course;
+ document.getElementById('certNo').innerText=no;
+ document.getElementById('certDate').innerText=new Date().toDateString();
+ document.getElementById('certBy').innerText=by;
+ document.getElementById('qrCode').innerText=no;
+}
+function showCertStudent(){doCert(currentStudent.name,currentStudent.reg,currentStudent.course,'Student Self-Service');}
+function showCertAdmin(reg){let u=getUsers(); let s=u[reg]; doCert(s.name,reg,s.course,'Admin / Registrar');}
+function backFromCert(){
+ document.getElementById('certPage').classList.add('hidden');
+ if(lastPage==='student') document.getElementById('studentPage').classList.remove('hidden');
+ if(lastPage==='admin') document.getElementById('adminPage').classList.remove('hidden');
+ if(lastPage==='dept') document.getElementById('deptPage').classList.remove('hidden');
+}
+function logout(){location.reload();}
+</script>
+</body>
+</html>

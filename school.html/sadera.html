@@ -1,0 +1,421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KWUST Security Management Website</title>
+
+    <style>
+        /* GENERAL STYLING */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;#42445Az
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #073574;
+            background-color: white;
+        }
+
+        /* HEADER AND NAVIGATION */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 5%;
+            background-color: white;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #073574;
+        }
+
+        .logo span {
+            display: block;
+            color: #e50925;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #073574;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #e50925;
+        }
+
+        /* WELCOME SECTION */
+        .hero {
+            min-height: 390px;
+            display: flex;
+            align-items: center;
+            padding: 60px 7%;
+            color: white;
+            background: linear-gradient(
+                110deg,
+                #062653 0%,
+                #104d88 70%,
+                #3278b4 100%
+            );
+            border-bottom: 6px solid #e50925;
+            border-left: 12px solid #e50925;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .welcome {
+            letter-spacing: 4px;
+            font-size: 17px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            margin: 18px 0;
+            line-height: 1.15;
+        }
+
+        .hero h1 span {
+            color: #ff334b;
+        }
+
+        .hero p.description {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 14px 25px;
+            margin: 5px 8px 5px 0;
+            border-radius: 30px;
+            font-weight: bold;
+            background-color: #e50925;
+            color: white;
+            border: 2px solid #e50925;
+            transition: 0.3s;
+        }
+
+        .btn.secondary {
+            background-color: transparent;
+            border-color: white;
+        }
+
+        .btn:hover {
+            background-color: white;
+            color: #073574;
+            border-color: white;
+        }
+
+        /* FEATURES SECTION */
+        .features {
+            padding: 45px 5%;
+            text-align: center;
+        }
+
+        .features h2,
+        .about h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .section-intro {
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .feature-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 25px 15px;
+            background-color: #edf5fd;
+            border-radius: 10px;
+            border-bottom: 5px solid #e50925;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px #07357420;
+        }
+
+        .feature-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background-color: #edf4fc;
+            padding: 45px 7%;
+            border-left: 7px solid #e50925;
+        }
+
+        .about-content {
+            max-width: 1000px;
+        }
+
+        .about p {
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        /* CONTACT SECTION */
+        .contact {
+            padding: 35px 7%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            line-height: 1.8;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #073574;
+            color: white;
+            text-align: center;
+            padding: 22px 10px;
+            line-height: 1.8;
+            border-bottom: 7px solid #e50925;
+        }
+
+        /* TABLETS */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .feature-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* MOBILE PHONES */
+        @media (max-width: 500px) {
+            .hero {
+                padding: 45px 6%;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .feature-container {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 14px;
+            }
+
+            nav a {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            KWUST
+            <span>SECURITY MANAGEMENT WEBSITE</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#login">Login</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- WELCOME SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+
+            <p class="welcome">WELCOME TO</p>
+
+            <h1>
+                KWUST<br>
+                SECURITY <span>MANAGEMENT</span> WEBSITE
+            </h1>
+
+            <p class="description">
+                A smarter, safer campus through effective
+                security management, incident reporting
+                and easy access to security information.
+            </p>
+
+            <a href="#features" class="btn">
+                🛡 Get Started →
+            </a>
+
+            <a href="#about" class="btn secondary">
+                Learn More
+            </a>
+
+        </div>
+    </section>
+
+    <!-- KEY FEATURES -->
+    <section class="features" id="features">
+
+        <h2>Key Features</h2>
+
+        <p class="section-intro">
+            Everything you need to support a safer campus.
+        </p>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Campus Safety</h3>
+                <p>
+                    Support a safer environment for
+                    students, staff and visitors.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Incident Reporting</h3>
+                <p>
+                    Provide a structured way to report
+                    and record security incidents.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Security Management</h3>
+                <p>
+                    Organize security information
+                    efficiently to support decision-making.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🕒</div>
+                <h3>Real-Time Access</h3>
+                <p>
+                    Make relevant security information
+                    accessible when it is needed.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT OUR WEBSITE -->
+    <section class="about" id="about">
+
+        <div class="about-content">
+            <h2>About Our Website</h2>
+
+            <p>
+                The KWUST Security Management Website is a
+                school project designed to support the
+                management of campus security information.
+                It aims to improve the organization of
+                security records, incident reporting and
+                access to relevant information for better
+                security management and decision-making.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- LOGIN PLACEHOLDER -->
+    <section class="contact" id="login">
+        <h2>Access the Website</h2>
+
+        <p>
+            Authorized users will be able to access
+            the security management features.
+        </p>
+
+        <a href="#contact" class="btn">
+            Contact Us
+        </a>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2>Contact Information</h2>
+
+        <p>
+            KWUST Security Management Website
+        </p>
+
+        <p>
+            For security-related enquiries, contact
+            the relevant university security office.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>KWUST Security Management Website</strong></p>
+
+        <p>School Project</p>
+
+        <p>
+            &copy; 2026 KWUST Security Management Website.
+            All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>

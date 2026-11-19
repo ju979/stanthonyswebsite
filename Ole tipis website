@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ole Tipis Girls High School</title>
+
+<style>
+:root {
+    --green: #124b36;
+    --gold: #e4b84b;
+    --cream: #fffaf0;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.8;
+    color: #26352d;
+    background: var(--cream);
+}
+
+/* Principal's photograph as a transparent background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("principal.jpg");
+    background-position: center;
+    background-size: cover;
+    opacity: 0.07;
+    z-index: -1;
+    pointer-events: none;
+}
+
+header {
+    background: var(--green);
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+    border-bottom: 6px solid var(--gold);
+}
+
+.school-logo {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+header h1 {
+    margin-bottom: 5px;
+    font-size: clamp(24px, 5vw, 38px);
+}
+
+header p {
+    margin: 4px;
+}
+
+nav {
+    background: #0b3527;
+    padding: 12px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 7px 10px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: var(--gold);
+}
+
+main {
+    width: min(1100px, 94%);
+    margin: auto;
+}
+
+section {
+    padding: 28px 20px;
+    background: rgba(255, 255, 255, 0.94);
+    margin: 22px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+h2 {
+    color: var(--green);
+    border-left: 5px solid var(--gold);
+    padding-left: 12px;
+}
+
+h3 {
+    color: var(--green);
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background: var(--gold);
+    margin: 20px 0;
+}
+
+.identity {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.identity article {
+    background: #f1f7f1;
+    border: 1px solid #d5e4d8;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.principal-card {
+    max-width: 680px;
+    margin: auto;
+    padding: 25px;
+    text-align: center;
+    background: #f4f0e6;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+}
+
+.principal-photo {
+    width: min(260px, 90%);
+    height: 300px;
+    object-fit: cover;
+    object-position: center top;
+    border: 5px solid white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px #aaa;
+}
+
+.principal-message {
+    background: white;
+    border-left: 5px solid var(--green);
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+    font-style: italic;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.gallery figure {
+    margin: 0;
+    background: white;
+    border-radius: 9px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px #ddd;
+}
+
+.gallery img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+}
+
+figcaption {
+    padding: 12px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.video-container iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+button {
+    padding: 12px 18px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #246d4e;
+}
+
+a {
+    color: #17613e;
+}
+
+footer {
+    background: var(--green);
+    color: white;
+    padding: 25px;
+    text-align: center;
+    border-top: 5px solid var(--gold);
+}
+
+footer a {
+    color: var(--gold);
+}
+
+@media (max-width: 600px) {
+    nav {
+        position: static;
+    }
+
+    nav a {
+        padding: 6px;
+    }
+
+    section {
+        padding: 20px 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img class="school-logo"
+         src="school-logo.png"
+         alt="Ole Tipis Girls High School logo">
+
+    <h1>OLE TIPIS GIRLS HIGH SCHOOL</h1>
+    <p>Narok County, Kenya</p>
+    <p><strong>Empowering Girls Through Education</strong></p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#identity">School Identity</a>
+    <a href="#management">Management</a>
+    <a href="#teachers">Teachers</a>
+    <a href="#streams">Streams & Hostels</a>
+    <a href="#principal">Principal</a>
+    <a href="#events">Events</a>
+    <a href="#gallery">Gallery</a>
+</nav>
+
+<main>
+
+<hr>
+
+<section id="home">
+    <h2>Welcome to Our School</h2>
+
+    <p>
+        Ole Tipis Girls High School is a public girls' boarding
+        secondary school located in Narok County, Kenya. The
+        institution provides an environment where learners can
+        develop their academic abilities, discover their talents
+        and prepare for future responsibilities. The school serves
+        learners from different backgrounds and encourages them
+        to pursue their educational goals with confidence,
+        discipline and determination.
+    </p>
+
+    <p>
+        Education at Ole Tipis Girls High School goes beyond
+        classroom learning. Learners participate in academic
+        activities, sports, cultural events, clubs and other
+        programmes that encourage teamwork and personal growth.
+        Through these experiences, students develop communication,
+        leadership, creativity and problem-solving skills that
+        prepare them for life beyond school.
+    </p>
+
+    <p>
+        The school community recognises the importance of
+        cooperation among teachers, learners, parents, alumni
+        and the Board of Management. Their combined efforts help
+        create a supportive learning environment, maintain school
+        standards and encourage learners to work towards
+        meaningful achievements. Respect, responsibility and
+        commitment are essential in building a successful
+        school community.
+    </p>
+
+    <p>
+        As an institution serving the community, Ole Tipis Girls
+        High School aims to nurture responsible, knowledgeable
+        and confident young women. By encouraging academic
+        excellence, integrity, creativity and service to society,
+        the school seeks to prepare learners to contribute
+        positively to their families, communities and the
+        development of Kenya.
+    </p>
+</section>
+
+<hr>
+
+<section id="identity">
+    <h2>School Identity</h2>
+
+    <div class="identity">
+        <article>
+            <h3>School Motto</h3>
+            <p>
+                <strong>Enter to Learn, Leave to Serve</strong>
+            </p>
+            <small>
+                Confirm the official school motto before submission.
+            </small>
+        </article>
+
+        <article>
+            <h3>Vision</h3>
+            <p>
+                To be a centre of excellence that nurtures
+                knowledgeable, disciplined and empowered young women.
+            </p>
+            <small>
+                Proposed wording; replace with the official vision.
+            </small>
+        </article>
+
+        <article>
+            <h3>Mission</h3>
+            <p>
+                To provide quality education and holistic development
+                through effective teaching, discipline, innovation
+                and partnership with the school community.
+            </p>
+            <small>
+                Proposed wording; replace with the official mission.
+            </small>
+        </article>
+    </div>
+</section>
+
+<hr>
+
+<section id="management">
+    <h2>Board of Management</h2>
+
+    <p>
+        The Board of Management supports the governance,
+        development and effective administration of the school.
+        The following definition list demonstrates how the
+        members and their positions should be presented.
+        Verify the current names and designations before submission.
+    </p>
+
+    <dl>
+        <dt><strong>[Chairperson's full name]</strong></dt>
+        <dd>Chairperson, Board of Management</dd>
+
+        <dt><strong>[Secretary's full name]</strong></dt>
+        <dd>Secretary to the Board</dd>
+
+        <dt><strong>[Member's full name]</strong></dt>
+        <dd>Board Member</dd>
+
+        <dt><strong>[Member's full name]</strong></dt>
+        <dd>Board Member</dd>
+
+        <dt><strong>[Member's full name]</strong></dt>
+        <dd>Board Member</dd>
+    </dl>
+
+    <p>
+        Note: The names above are placeholders, not a verified
+        current list of the school's Board members.
+    </p>
+</section>
+
+<hr>
+
+<section id="teachers">
+    <h2>Our Teachers</h2>
+
+    <p>
+        Teachers guide learners through lessons, assessments,
+        mentorship and extracurricular activities. Replace the
+        placeholders below with the school's complete, verified
+        staff list in the required ordered-list format.
+    </p>
+
+    <ol>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+        <li>[Teacher's full name]</li>
+    </ol>
+
+    <p>
+        These entries are examples of the required structure,
+        not actual teacher names.
+    </p>
+</section>
+
+<hr>
+
+<section id="streams">
+    <h2>School Streams and Hostels</h2>
+
+    <h3>Streams</h3>
+    <ul>
+        <li>[Enter the official stream name]</li>
+        <li>[Enter the official stream name]</li>
+        <li>[Enter the official stream name]</li>
+        <li>[Enter the official stream name]</li>
+        <li>[Enter the official stream name]</li>
+        <li>[Enter the official stream name]</li>
+    </ul>
+
+    <h3>Hostels</h3>
+    <ul>
+        <li>[Enter the official hostel name]</li>
+        <li>[Enter the official hostel name]</li>
+        <li>[Enter the official hostel name]</li>
+    </ul>
+
+    <p>
+        The school's published 2023 report recorded six streams.
+        The current stream and hostel names should be confirmed
+        with the school.
+    </p>
+</section>
+
+<hr>
+
+<section id="principal">
+    <h2>Message from the Principal</h2>
+
+    <div class="principal-card">
+        <img class="principal-photo"
+             src="principal.jpg"
+             alt="Principal of Ole Tipis Girls High School">
+
+        <h3>Message to Our School Community</h3>
+
+        <p class="principal-message">
+            Welcome to Ole Tipis Girls High School. It is my
+            pleasure to be part of a community committed to
+            learning, discipline, integrity and excellence.
+            Our responsibility is to provide an environment
+            where every learner feels encouraged to discover
+            her potential and work towards her dreams.
+
+            I encourage our students to remain focused on their
+            studies, respect one another and participate actively
+            in school activities. To our teachers and support
+            staff, thank you for your dedication and contribution
+            to the development of our learners. I also appreciate
+            parents, guardians, alumni and partners for their
+            continued support.
+
+            Together, let us continue building a school community
+            that values knowledge, character, responsibility and
+            service. May every learner leave our institution
+            prepared to make a positive difference in society.
+        </p>
+
+        <p><strong>The Principal</strong></p>
+        <p>Ole Tipis Girls High School, Narok</p>
+    </div>
+</section>
+
+<hr>
+
+<section id="events">
+    <h2>School Events: Prize-Giving Day</h2>
+
+    <p>
+        Prize-giving day is an opportunity to celebrate academic
+        achievement, recognise effort and motivate learners to
+        continue pursuing excellence. The event may bring together
+        students, parents, teachers, school leaders, invited guests
+        and community representatives. Awards recognise outstanding
+        performance, improvement, leadership and participation
+        in school activities.
+    </p>
+
+    <p>
+        Music and cultural performances can make the celebration
+        memorable by showcasing local talent and bringing the
+        school community together. Insert the actual event date,
+        guest names, artist and performance details once verified.
+        The description here is an illustrative account, not a
+        claim that a particular prize-giving ceremony occurred.
+    </p>
+
+    <h3>Musical Entertainment</h3>
+
+    <p>
+        Use the video below to find a performance by a local artist.
+        Select the appropriate song and replace the demonstration
+        video with the actual video of the performance.
+    </p>
+
+    <p>
+        <a href="https://www.youtube.com/results?search_query=Ole+Tipis+Girls+school+event+Maasai+song"
+           target="_blank" rel="noopener">
+            Find Ole Tipis Girls school performances on YouTube
+        </a>
+    </p>
+
+    <div class="video-container">
+        <iframe
+            src="https://www.youtube-nocookie.com/embed?listType=search&list=Ole%20Tipis%20Girls%20school%20event%20Maasai%20song"
+            title="Search for a school event musical performance"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <p>
+        If the embedded search does not play on your phone,
+        open the YouTube link above and select a suitable video.
+        Use its official embed code in this section.
+    </p>
+</section>
+
+<hr>
+
+<section id="gallery">
+    <h2>School Photo Gallery</h2>
+
+    <p>
+        The gallery is designed to showcase the school's campus,
+        learning facilities and activities. Replace the sample
+        image links with authentic school photographs, including
+        prize-giving day pictures where available.
+    </p>
+
+    <div class="gallery">
+
+        <figure>
+            <a href="https://www.flickr.com/photos/firstladykenya/albums/72177720310351439/"
+               target="_blank" rel="noopener">
+                <img
+                    src="school-campus.jpg"
+                    alt="Ole Tipis Girls school campus">
+            </a>
+            <figcaption>School Campus</figcaption>
+        </figure>
+
+        <figure>
+            <img src="school-gate.jpg"
+                 alt="Ole Tipis Girls school gate">
+            <figcaption>School Entrance</figcaption>
+        </figure>
+
+        <figure>
+            <img src="prize-giving.jpg"
+                 alt="School prize-giving ceremony">
+            <figcaption>Prize-Giving Day</figcaption>
+        </figure>
+
+        <figure>
+            <img src="school-activities.jpg"
+                 alt="School activities and student life">
+            <figcaption>School Activities</figcaption>
+        </figure>
+
+    </div>
+
+    <p>
+        <a href="https://www.flickr.com/photos/firstladykenya/albums/72177720310351439/"
+           target="_blank" rel="noopener">
+            View publicly available Ole Tipis Girls photographs
+        </a>
+    </p>
+</section>
+
+<hr>
+
+<section id="contact">
+    <h2>Contact and Official Links</h2>
+
+    <p><strong>School:</strong> Ole Tipis Girls High School</p>
+    <p><strong>Location:</strong> Narok County, Kenya</p>
+    <p><strong>Email:</strong>
+        <a href="mailto:otgschool@gmail.com">otgschool@gmail.com</a>
+    </p>
+
+    <p>
+        <strong>School website / social media:</strong>
+        <a href="https://www.facebook.com/search/top?q=ole%20tipis%20girls%20school"
+           target="_blank" rel="noopener">
+            Find Ole Tipis Girls on Facebook
+        </a>
+    </p>
+
+    <p>
+        Confirm the contact details and social media account
+        before using this as an official school contact page.
+    </p>
+</section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Ole Tipis Girls High School Website Project</p>
+    <p>Education • Discipline • Excellence • Service</p>
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        Back to Top
+    </button>
+</footer>
+
+</body>
+</html>
